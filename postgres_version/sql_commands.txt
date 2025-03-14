@@ -1,0 +1,18 @@
+-- Criar tabela estabelecimento
+CREATE TABLE estabelecimento (
+    id SERIAL PRIMARY KEY,
+    google_id TEXT UNIQUE NOT NULL,
+    nome TEXT NOT NULL
+);
+
+-- Criar tabela avaliacao
+CREATE TABLE avaliacao (
+    id SERIAL PRIMARY KEY,
+    usuario_nome TEXT NOT NULL,
+    nota INTEGER CHECK (nota >= 1 AND nota <= 5) NOT NULL,
+    texto TEXT,
+    hash TEXT UNIQUE NOT NULL,
+    removido BOOLEAN DEFAULT FALSE,
+    estabelecimento_id INTEGER NOT NULL,
+    FOREIGN KEY (estabelecimento_id) REFERENCES estabelecimento(id) ON DELETE CASCADE
+);
